@@ -1,0 +1,14 @@
+module.exports = {
+    name: "descNoti",
+    description: "إشعار عند تغيير وصف المجموعة.",
+    async execute(api, message, config) {
+        if (message.type === "event" && message.logMessageType === "log:thread-description") {
+            const threadID = message.threadID;
+            const msg = `📝 [ تحديث وصف الجروب ] ✨\n\n` +
+                        `⚙️ قام أحد المشرفين بتحديث أو تغيير وصف المجموعة الرئيسي!\n` +
+                        `👀 يرجى قراءة الوصف الجديد لمعرفة شروط الجروب.\n\n` +
+                        `🤖 بواسطة البوت العام Luky 👑`;
+            api.sendMessage(msg, threadID);
+        }
+    }
+};
