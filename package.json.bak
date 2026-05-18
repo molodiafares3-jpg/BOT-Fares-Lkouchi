@@ -1,0 +1,26 @@
+const fs = require("fs");
+const login = require("fca-project-orion");
+
+// قراءة ملف الـ AppState لتسجيل الدخول للحساب الشخصي
+login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
+    if(err) return console.error(err);
+
+    console.log("🤖 البوت [ Luky ] تم تشغيله بنجاح وهو جاهز للعمل على الحساب الشخصي! 🎉");
+    console.log("👑 المطور: Fares Lkouchi");
+
+    // الاستماع للرسائل الواردة في الحساب
+    api.listenMqtt((err, message) => {
+        if(err) return console.error(err);
+
+        // الرد على الرسائل النصية فقط الواردة من الآخرين
+        if(message.type === "message" && message.body) {
+            console.log(`📩 رسالة جديدة من [${message.senderID}]: ${message.body}`);
+            
+            // نص الرد التلقائي الاحترافي للبوت Luky
+            const replyMessage = `🤖 مرحباً بك!\n\nأنا البوت التلقائي [ Luky ] ⚡ الخاص بحساب المطور: Fares Lkouchi 👑.\n\nلقد استلمت رسالتك: "${message.body}"، وسيقوم المطور بالرد عليك فور تواجده! ✨`;
+            
+            // إرسال الرد
+            api.sendMessage(replyMessage, message.threadID);
+        }
+    });
+});
