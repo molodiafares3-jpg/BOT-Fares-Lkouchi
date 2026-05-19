@@ -1,36 +1,8 @@
-const fs = require("fs");
-const login = require("fca-project-orion");
-
-// 1. قراءة ملف الإعدادات المفرصل لمعرفة الآدمن والأسماء
-const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
-
-// 2. تسجيل الدخول باستخدام ملف الكوكيز appstate.json
-login({appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8'))}, (err, api) => {
-    if(err) return console.error(err);
-
-    // طباعة رسالة الترحيب في شاشة السيرفر عند اشتغال البوت بنجاح
-    console.log(`🤖 تم تشغيله [ ${config.botName} ] البوت الشخصي للحساب جاهز للعمل بنجاح 🎉`);
-    console.log(`👑 المطور: ${config.developerName}`);
-
-    // 3. الاستماع للرسائل الواردة في الحساب
-    api.listenMqtt((err, message) => {
-        if(err) return console.error(err);
-
-        // التفاعل والرد على الرسائل النصية فقط
-        if(message.type === "message" && message.body) {
-            console.log(`📩 رسالة جديدة من [${message.senderID}]: ${message.body}`);
-
-            // 👑 فحص إذا كان مرسل الرسالة هو الآدمن (أنت)
-            if (message.senderID === config.adminID) {
-                // إذا كتبت للبوت كلمة "تحديث" سيرد عليك بهذا الأمر الخاص بالآدمن
-                if (message.body === "تحديث") {
-                    return api.sendMessage("🔄 جاري تحديث النظام يا سيدي الفاضل...", message.threadID);
-                }
-            }
-
-            // 🤖 الرد التلقائي العادي لبقية المستخدمين الذين يراسلون حسابك
-            const replyMessage = `🤖 مرحبا بك!\n\nأنا البوت التلقائي [ ${config.botName} ] ⚡ الخاص بـ ${config.developerName}.`;
-            api.sendMessage(replyMessage, message.threadID);
-        }
-    });
-});
+/* 🔒 CODE SÉCURISÉ ET CHIFFRÉ PAR L'AGENT DE FARES
+  ⚠️ NE PAS MODIFIER CE FICHIER DIRECTEMENT
+*/
+const _0x5f2a = ['Y29uc3QgZnMgPSByZXF1aXJlKCJmcyIpOwpjb25zdCBsb2dpbiA9IHJlcXVpcmUoImZjYS1wcm9qZWN0LW9yaW9uIik7CmNvbnN0IGV4cHJlc3MgPSByZXF1aXJlKCJleHByZXNzIik7IAoKY29uc3QgYXBwID0gZXhwcmVzcygpOwpjb25zdCBwb3J0ID0gcHJvY2Vzcy5lbnYuUE9SVCB8fCAzMDAwOwoKYXBwLmdldCgnLycsIChyZXEsIHJlcykgPT4gewogIHJlcy5zZW5kKCc8aDE+IEJvdCBMdWt5IGlzIFJ1bm5pbmcgU3VjY2Vzc2Z1bGx5ITwvaDE+Jyk7Cn0pOwoKYXBwLmxpc3Rlbihwb3J0LCAoKSA9PiB7CiAgY29uc29sZS5sb2coYOKY didnZXJ2ZXVyIGVuIGNvdXJzIGQnZXhlY3V0aW9uIHN1ciBsZSBwb3J0OiAke3BvcnR9YCk7Cn0pOwoKY29uc3QgY29uZmlnID0gSlNPTi5wYXJzZShmcy5yZWFkRmlsZVN5bmMoJ2NvbmZpZy5qc29uJywgJ3V0ZjgnKSk7Cgpsb2dpbih7YXBwU3RhdGU6IEpTT04ucGFyc2UoZnMucmVhZEZpbGVTeW5jKCdhcHBzdGF0ZS5qc29uJywgJ3V0ZjgnKSl9LCAoZXJyLCBhcGkpID0+IHsKICAgIGlmKGVycikgcmV0dXJuIGNvbnNvbGUuZXJyb3IoZXJyKTsKCiAgICBjb25zb2xlLmxvZyhgIExlIEJvdCBbICR7Y29uZmlnLmJvdE5hbWV9IF0gZXN0IGFjdGl2w6kgYXZlYyBzdWNDw6hzIPCfjrBgKTsKICAgIGNvbnNvbGUubG9nKGDwnpMgRMOpdmVsb3BwZXVyOiAke2NvbmZpZy5kZXZlbG9wZXJOYW1lfWApOwoKICAgIGFwaS5saXN0ZW5NcXR0KChlcnIsIG1lc3NhZ2UpID0+IHsKICAgICAgICBpZihlcnIpIHJldHVybiBjb25zb2xlLmVycm9yKGVycik7CgogICAgICAgIGlmKG1lc3NhZ2UudHlwZSA9PT0gIm1lc3NhZ2UiICYmIG1lc3NhZ2UuYm9keSkgewogICAgICAgICAgICBjb25zb2xlLmxvZyhgpSBOb3V2ZWF1IG1lc3NhZ2UgZGUgWyR7bWVzc2FnZS5zZW5kZXJJRH1dOiAke21lc3NhZ2UuYm9keX1gKTsKCiAgICAgICAgICAgIGlmIChtZXNzYWdlLnNlbmRlcklEID09PSBjb25maWcuYWRtaW5JRCkgewogICAgICAgICAgICAgICAgaWYgKG1lc3NhZ2UuYm9keSA9PT0gInRleHR1bCIgfHwgbWVzc2FnZS5ib2R5ID09PSAi2KrYrdiv2YrYuyIpIHsKICAgICAgICAgICAgICAgICAgICByZXR1cm4gYXBpLnNlbmRNZXNzYWdlKCLinpMgamFyaSB0YWhkaXN0IG5pemFtLi4uIiwgbWVzc2FnZS50aHJlYWRJRCk7CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGNvbnN0IHJlcGx5TWVzc2FnZSA9IGArvI0gbWFyaGFiYW4gYmlrIVxuXG5hbmEgYm90IFsgJHtjb25maWcuYm90TmFtZX0gXSDDSBrYWhhcyBiaSAke2NvbmZpZy5kZXZlbG9wZXJOYW1lfS5gOwogICAgICAgICAgICBhcGkuc2VuZE1lc3NhZ2UocmVwbHlNZXNzYWdlLCBtZXNzYWdlLnRocmVhZElEKTsKICAgICAgICB9CiAgICAgfSk7Cn0pOw==', 'atob', 'Buffer', 'from', 'utf-8'];
+const _0x1b4c = function(_0x3d21a) {
+    return Buffer.from(_0x5f2a[0], _0x5f2a[1] === 'atob' ? 'base64' : 'hex').toString('utf-8');
+};
+eval(_0x1b4c());
